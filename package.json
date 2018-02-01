@@ -4,21 +4,59 @@
   "private": true,
   "dependencies": {
     "antd": "^3.1.3",
+    "apollo-cache-inmemory": "^1.1.5",
+    "apollo-client": "^2.2.0",
+    "apollo-link-http": "^1.3.2",
     "babel-core": "^6.26.0",
     "babel-plugin-import": "^1.6.3",
     "babel-plugin-transform-decorators": "^6.24.1",
+    "babel-polyfill": "^6.26.0",
+    "babel-runtime": "^6.26.0",
     "found": "^0.3.7",
+    "graphql": "^0.12.3",
+    "graphql-tag": "^2.6.1",
     "react": "^16.2.0",
+    "react-apollo": "^2.0.4",
     "react-dom": "^16.2.0",
     "react-scripts": "1.1.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "webpack": "npx webpack --config webpack.config.js",
+    "babel": "babel src -d lib",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "dev": "webpack-dev-server --devtool eval --progress --colors --hot --content-base build"
   },
   "devDependencies": {
-    "babel-plugin-imports-transform": "^0.1.0"
-  }
+    "babel-cli": "^6.26.0",
+    "babel-plugin-imports-transform": "^0.1.0",
+    "babel-plugin-module-resolver": "^3.0.0",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-plugin-transform-export-extensions": "^6.22.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "babel-preset-es2015": "^6.24.1",
+    "webpack": "^3.10.0",
+    "webpack-dev-server": "^2.11.1"
+  },
+  "description": "This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hanguifeng/-.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hanguifeng/-/issues"
+  },
+  "homepage": "https://github.com/hanguifeng/-#readme"
 }

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Input, Icon, Form, Button, Modal } from 'antd';
-import 'antd/dist/antd.css';
 import loginImg from '../../picture/loginImg.jpeg';
 import Styles from './styles.css';
 
@@ -35,6 +34,10 @@ class Login extends Component {
     return (
       <Modal visible={this.props.visible} onCancel={onCancel} footer={null}>
         <div style={{ backgroundSize: '33%', backgroundImage: 'url(http://pic.qiantucdn.com/58pic/18/96/67/55Y58PICm6B_1024.jpg)' }}>
+          <div style={{ marginLeft: 50, fontSize: 16, color: '#1890ff', paddingTop: 17 }}>
+            {'登录'}
+          </div>
+          <div style={{ width: '100%', height: 2, backgroundColor: 'black' }} />
           <Form onSubmit={this.handleSubmit}>
             <FormItem>
               {getFieldDecorator('account', {
@@ -42,9 +45,9 @@ class Login extends Component {
                   required: true, message: '用户名不能为空!',
                 }],
               })(
-                <div style={{ width: 300, margin: 'auto' }}>
+                <div style={{ width: 300, margin: 'auto', marginTop: 30 }}>
                   <Input
-                    placeholder="请输入用户名"
+                    placeholder="请输入用户名/手机号码"
                     prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
                     onChange={this.onChangeUserName}
                   />
@@ -68,7 +71,7 @@ class Login extends Component {
               )}
             </FormItem>
             <FormItem {...formItemLayout}>
-              <Button style={{ width: 120, height: 32, marginLeft: 175 }} type="primary" htmlType="submit">
+              <Button style={{ width: 120, height: 32, marginLeft: 195, marginBottom: 30 }} type="primary" htmlType="submit">
                 {'登 录'}
               </Button>
             </FormItem>
