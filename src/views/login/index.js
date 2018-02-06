@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import { createRefetchContainer, graphql } from 'react-relay';
+import { withRouter } from 'found';
 import { Input, Icon, Form, Button, Modal } from 'antd';
-import loginImg from '../../picture/loginImg.jpeg';
 import Styles from './styles.css';
 
 const FormItem = Form.Item;
@@ -9,6 +10,7 @@ type Props = {
   form: any,
   visible: boolean,
   onCancel: () => {},
+  feed: {},
 };
 
 class Login extends Component {
@@ -32,7 +34,7 @@ class Login extends Component {
     };
 
     return (
-      <Modal visible={this.props.visible} onCancel={onCancel} footer={null}>
+      <Modal visible={visible} onCancel={onCancel} footer={null}>
         <div style={{ backgroundSize: '33%', backgroundImage: 'url(http://pic.qiantucdn.com/58pic/18/96/67/55Y58PICm6B_1024.jpg)' }}>
           <div style={{ marginLeft: 50, fontSize: 16, color: '#1890ff', paddingTop: 17 }}>
             {'登录'}
@@ -82,6 +84,15 @@ class Login extends Component {
   }
 }
 
-const LoginWithForm = Form.create()(Login);
+const LoginWithRefetchContainer = createRefetchContainer(withRouter(Form.create()(Login)), {
+  feed: graphql`
+    fragment login_feed on Post @relay(plural: true) {
+      id
+      isPublished
+      title
+      text
+    }
+  `,
+});
 
-export default LoginWithForm;
+export default LoginWithRefetchContainer;

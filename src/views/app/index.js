@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Modal } from 'antd';
-import { borderGrey } from '../../styles/color/index';
-import logo from '../../picture/logo.svg';
-import yimai from '../../picture/yimai.png';
+import { graphql } from 'react-relay';
+import { createQueryRenderer } from 'store/relay';
+import { borderGrey } from 'styles/color/index';
+import logo from 'picture/logo.svg';
+import yimai from 'picture/yimai.png';
 import Login from '../login';
 import Nav from './Nav';
 import './App.css';
@@ -44,4 +45,14 @@ class App extends Component {
   }
 }
 
-export default App;
+const AppQuery = graphql`
+  query app_Query {
+    feed {
+      ...login_feed
+    }
+  }
+`;
+
+const AppContainer = createQueryRenderer(App, AppQuery);
+
+export default AppContainer;

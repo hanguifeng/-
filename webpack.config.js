@@ -8,12 +8,6 @@ module.exports = {
   },
   resolve: {
     extensions: ["", "js", "jsx", "es6", "css", "scss", "png", "jpg", "jpeg"],
-    alias: {
-      'components': path.resolve(__dirname, 'src/components'),
-      'views': path.resolve(__dirname, 'src/views'),
-      'src': path.resolve(__dirname, 'src'),
-      'styles': path.resolve(__dirname, 'src/styles'),
-    }
   },
   module: {
     rules: [
@@ -43,7 +37,6 @@ module.exports = {
         query: {
           cacheDirectory: true,
           presets: ['react', 'es2015', "stage-0"],
-          plugins: [["import", { libraryName: "antd", style: "css"}]]
         }
       }
     ],
