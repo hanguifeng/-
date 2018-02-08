@@ -63,11 +63,7 @@ const ConnectedRouter = createConnectedRouter({
     },
   }),
 });
-console.log(<LocaleProvider locale={zhCN}>
-  <Provider store={store}>
-    <ConnectedRouter resolver={new Resolver(environment)} />
-  </Provider>
-</LocaleProvider>);
+
 export default () => (
   <LocaleProvider locale={zhCN}>
     <Provider store={store}>

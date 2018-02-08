@@ -20,7 +20,7 @@ const fetchQuery = (operation, variables, cacheConfig) => {
   if (forceLoad) {
     cache.clear();
   }
-  return fetch('http://localhost:4000', {
+  return fetch('http://localhost:4000/graphql', {
     method: 'POST',
     headers: {
       // add authentication and other headers here

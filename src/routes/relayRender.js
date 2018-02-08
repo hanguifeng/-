@@ -20,12 +20,11 @@ const childrenStyle = {
 export const relayRender = () => {
   return a => {
     const { error, props, Component } = a;
-    console.log(props);
     if (error) {
       // 对错误进行格式化处理
       const _error = errorFormat(error);
       if (_error) {
-        global.log.error('relayRenderError:', error, _error);
+        // global.log.error('relayRenderError:', error, _error);
         // 如果有error.message;
         if (_error.message) {
           return (

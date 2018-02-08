@@ -11,7 +11,7 @@ const {
 
 const schemaPath = path.join(__dirname, '../schema');
 
-const SERVER = process.env.URL ? `${process.env.URL}/graphql` : 'http://localhost:4000';
+const SERVER = process.env.URL ? `${process.env.URL}/graphql` : 'http://localhost:4000/graphql';
 console.log(`update-schema url: ${SERVER}`);
 
 // Save JSON of full schema introspection for Babel Relay Plugin to use

@@ -47,8 +47,8 @@ class App extends Component {
 
 const AppQuery = graphql`
   query app_Query {
-    feed {
-      ...login_feed
+    users {
+      ...login_users
     }
   }
 `;

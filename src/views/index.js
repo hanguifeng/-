@@ -9,8 +9,8 @@ import Login from './login';
 
 const loginQuery = graphql`
   query views_login_Query {
-    feed {
-      ...login_feed
+    users {
+      ...login_users
     }
   }
 `;

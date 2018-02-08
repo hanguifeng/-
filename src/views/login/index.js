@@ -10,7 +10,7 @@ type Props = {
   form: any,
   visible: boolean,
   onCancel: () => {},
-  feed: {},
+  users: {},
 };
 
 class Login extends Component {
@@ -85,12 +85,11 @@ class Login extends Component {
 }
 
 const LoginWithRefetchContainer = createRefetchContainer(withRouter(Form.create()(Login)), {
-  feed: graphql`
-    fragment login_feed on Post @relay(plural: true) {
+  users: graphql`
+    fragment login_users on UserType @relay(plural: true) {
       id
-      isPublished
-      title
-      text
+      name
+      password
     }
   `,
 });

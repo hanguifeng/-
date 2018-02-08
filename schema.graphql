@@ -1,22 +1,19 @@
 type Mutation {
-  createDraft(title: String!, text: String): Post
-  deletePost(id: ID!): Post
-  publish(id: ID!): Post
-}
-
-interface Node {
-  id: ID!
-}
-
-type Post implements Node {
-  id: ID!
-  isPublished: Boolean!
-  title: String!
-  text: String!
+  createUser(input: UserInputType!): UserType
 }
 
 type Query {
-  feed: [Post!]!
-  drafts: [Post!]!
-  post(id: ID!): Post
+  users: [UserType]
+}
+
+"""User payload definition"""
+input UserInputType {
+  email: String!
+}
+
+"""User信息"""
+type UserType {
+  id: ID!
+  name: String
+  password: String
 }
