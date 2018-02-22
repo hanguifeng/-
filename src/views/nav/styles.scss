@@ -1,0 +1,10 @@
+:global {
+    .ant-menu-horizontal {
+        border: 0;
+        border-bottom: 1px solid #e8e8e8;
+        box-shadow: none;
+        line-height: 46px;
+        color: $white;
+        background: linear-gradient(to right, $orange, $red);
+    }
+}

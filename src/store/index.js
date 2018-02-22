@@ -10,10 +10,12 @@ import {
   foundReducer,
 } from 'found';
 import routeConfig from 'src/routes/routeConfig';
-console.log(routeConfig);
+import * as reducer from './redux';
+
 const createMyStore = routeConfig => {
   return createStore(
     combineReducers({
+      ...reducer,
       found: foundReducer,
     }),
     compose(

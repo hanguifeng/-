@@ -1,0 +1,39 @@
+.topNavigationWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  border-bottom: 1px solid $deepGrey;
+  background-color: $backgroundGrey;
+  padding: 0 140px;
+  height: 40px;
+}
+.pageHeaderImg {
+  width: 100%;
+  height: 200px;
+}
+.login {
+  cursor: pointer;
+  color: $blue;
+  font-size: 18px;
+  &::after {
+    content: '·';
+    color: $blue;
+    padding: 0 5px;
+  }
+}
+.accountImage {
+  border-radius: 20px;
+  height: 30px;
+  width: 30px;
+  margin-right: 10px;
+}
+.userName {
+  margin-right: 70px;
+  color: $deepGrey;
+}
+.register {
+  cursor: pointer;
+  color: $blue;
+  font-size: 18px;
+}

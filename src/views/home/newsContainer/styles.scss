@@ -1,0 +1,38 @@
+.newsWrapper {
+    background-color: $white;
+    padding: 20px;
+    margin-top: 10px;
+}
+.title {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 20px;
+    border-bottom: 2px solid $deepGrey;
+    margin-bottom: 10px;
+}
+.titleText {
+    font-size: 20px;
+    font-weight: 500;
+}
+.titleAction {
+    display: flex;
+    align-items: center;
+    color: $deepGrey;
+    cursor: pointer;
+}
+.titleAction:hover {
+    color: $blue;
+}
+.newItem {
+    display: flex;
+    justify-content: space-between;
+}
+.newTitle {
+    color: $black;
+    font-size: 16px;
+    padding-bottom: 5px;
+}
+.newTime{
+    color: $sliverGrey;
+    font-size: 16px;
+}

@@ -1,11 +1,10 @@
-// 对relay modern的queryRenderer进行封装
 import React from 'react';
 import { message, Spin } from 'antd';
 import { QueryRenderer } from 'react-relay';
 import { errorsHandle } from 'src/utils/errorHandle';
 import defaultEnvironment from './environment';
 
-const defaultRender = (Component, extraProps, render) => {
+const defaultRender = (Component, extraProps) => {
   return (myProps: { errors: any, props: any }) => {
     const { errors, props } = myProps;
     if (errors) {
@@ -14,13 +13,10 @@ const defaultRender = (Component, extraProps, render) => {
       });
       return null;
     }
-    if (render) {
-      return render({ ...props, ...extraProps }, Component);
-    }
     if (props) {
       return <Component {...props} {...extraProps} />;
     }
-    // 默认必须返回null。防止出现生命周期混乱
+
     return (
       <div style={{ textAlign: 'center', height: 100, lineHeight: '100px' }}>
         <Spin size="large" />
@@ -29,7 +25,7 @@ const defaultRender = (Component, extraProps, render) => {
   };
 };
 
-const createQueryRenderer = (Component, query, defaultVaribles, render) => {
+const createQueryRenderer = (Component, query, defaultVaribles) => {
   if (!Component) {
     throw new Error('Component参数是createQueryRenderer函数必须的参数');
   }
@@ -38,6 +34,7 @@ const createQueryRenderer = (Component, query, defaultVaribles, render) => {
   }
   return (props: { variables: {}, environment: {} }) => {
     const { variables, environment, ...rest } = props;
+
     return (
       <QueryRenderer
         variables={{ ...defaultVaribles, ...variables }}
@@ -45,7 +42,6 @@ const createQueryRenderer = (Component, query, defaultVaribles, render) => {
         render={defaultRender(
           Component,
           { variables: { ...defaultVaribles, ...variables }, ...rest },
-          render,
         )}
         environment={environment || defaultEnvironment}
       />

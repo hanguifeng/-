@@ -19,7 +19,7 @@ const errorFormat = (err, cb) => {
 const errorHandle = (error, cb, formateFn) => {
   const _error = errorFormat(error, formateFn);
   if (_error && _error.message && cb) {
-    global.log.error(_error.message);
+    console.log(_error.message);
     return cb(_error) || _error;
   }
   return _error;

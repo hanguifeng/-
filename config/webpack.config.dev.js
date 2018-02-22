@@ -11,6 +11,8 @@ const eslintFormatter = require('react-dev-utils/eslintFormatter');
 const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
 const getClientEnvironment = require('./env');
 const paths = require('./paths');
+// antd主题设置
+// const theme = require(path.resolve(__dirname, '../src/styles/theme/antdTheme')).default;
 
 // Webpack uses `publicPath` to determine where the app is being served from.
 // In development, we always serve from the root. This makes config easier.
@@ -188,6 +190,52 @@ module.exports = {
               },
             ],
           },
+          {
+            test: /\.scss$/,
+            use: [{
+              loader: 'style-loader',
+            }, {
+              loader: 'css-loader',
+              options: {
+                modules: true,
+                importLoaders: 1,
+                sourceMap: true,
+                localIdentName: '[local]___[hash:base64:5]',
+              },
+            }, {
+              loader: 'sass-loader',
+              options: {
+                sourceMap: true,
+                includePaths: [path.resolve(__dirname, '../'), path.resolve(__dirname, '../src')],
+              },
+            }, {
+              loader: '@epegzz/sass-vars-loader',
+              options: {
+                syntax: 'scss',
+                files: [
+                  path.resolve(__dirname, '../src/styles/color/index.js'),
+                ],
+              },
+            },
+            ],
+          },
+          // {
+          //   test: /\.less$/,
+          //   use: [{
+          //     loader: 'style-loader',
+          //   }, {
+          //     loader: 'css-loader',
+          //     options: {
+          //       importLoaders: 1,
+          //     },
+          //   }, {
+          //     loader: 'less-loader',
+          //     options: {
+          //       sourceMap: true,
+          //       modifyVars: theme,
+          //     },
+          //   }],
+          // },
           // "file" loader makes sure those assets get served by WebpackDevServer.
           // When you `import` an asset, you get its (virtual) filename.
           // In production, they would get copied to the `build` folder.

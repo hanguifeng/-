@@ -1,19 +1,146 @@
+"""Commodity信息"""
+type CommodityType {
+  """The ID of an object"""
+  id: ID!
+  name: String
+  price: Float
+  image: String
+  desc: String
+  category: String
+}
+
+"""A connection to a list of items."""
+type CommodityTypeConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [CommodityTypeEdge]
+}
+
+"""An edge in a connection."""
+type CommodityTypeEdge {
+  """The item at the end of the edge"""
+  node: CommodityType
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+input createTokenInput {
+  nickName: String
+  phoneNumber: String
+  password: String!
+  clientMutationId: String
+}
+
+type createTokenPayload {
+  error: String
+  user: UserType
+  clientMutationId: String
+}
+
+input createUserInput {
+  nickName: String!
+  password: String!
+  phoneNumber: String!
+  clientMutationId: String
+}
+
+type createUserPayload {
+  error: String
+  user: UserType
+  clientMutationId: String
+}
+
 type Mutation {
-  createUser(input: UserInputType!): UserType
+  createToken(input: createTokenInput!): createTokenPayload
+  createUser(input: createUserInput!): createUserPayload
+}
+
+"""New信息"""
+type NewType {
+  """The ID of an object"""
+  id: ID!
+  time: String
+  title: String
+  url: String
+  acount: Int
+}
+
+"""A connection to a list of items."""
+type NewTypeConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [NewTypeEdge]
+}
+
+"""An edge in a connection."""
+type NewTypeEdge {
+  """The item at the end of the edge"""
+  node: NewType
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+"""Information about pagination in a connection."""
+type PageInfo {
+  """When paginating forwards, are there more items?"""
+  hasNextPage: Boolean!
+
+  """When paginating backwards, are there more items?"""
+  hasPreviousPage: Boolean!
+
+  """When paginating backwards, the cursor to continue."""
+  startCursor: String
+
+  """When paginating forwards, the cursor to continue."""
+  endCursor: String
 }
 
 type Query {
-  users: [UserType]
-}
-
-"""User payload definition"""
-input UserInputType {
-  email: String!
+  viewer: Viewer
 }
 
 """User信息"""
 type UserType {
+  """The ID of an object"""
   id: ID!
   name: String
   password: String
+  sex: String
+  nickName: String
+  phoneNumber: String
+  accountImage: String
+}
+
+"""A connection to a list of items."""
+type UserTypeConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [UserTypeEdge]
+}
+
+"""An edge in a connection."""
+type UserTypeEdge {
+  """The item at the end of the edge"""
+  node: UserType
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+"""根节点"""
+type Viewer {
+  """The ID of an object"""
+  id: ID!
+  users(after: String, first: Int, before: String, last: Int): UserTypeConnection
+  user(id: String): UserType
+  commodities(category: String, from: Int, after: String, first: Int, before: String, last: Int): CommodityTypeConnection
+  news(from: Int, after: String, first: Int, before: String, last: Int): NewTypeConnection
 }

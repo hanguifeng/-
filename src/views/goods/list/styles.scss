@@ -1,0 +1,39 @@
+.wrapper {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-left: 180px;
+}
+.itemWrapper {
+    padding: 20px;
+    background-color: $white;
+    margin-bottom: 10px;
+}
+.pictureImg {
+    width: 530px;
+    height: 300px;
+    cursor: pointer;
+}
+.pictureName {
+    cursor: pointer;
+    font-size: 16px;
+    width: 530px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.pictureName:hover {
+    color: $deepGrey;
+}
+.pictureDesc {
+    width: 530px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: $deepGrey
+}
+.bottomText {
+    margin: 0 auto;
+    margin-bottom: 30px;
+    font-size: 16px;
+}

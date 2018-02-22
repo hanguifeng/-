@@ -1,0 +1,24 @@
+.newsWrapper {
+    background-color: white;
+    margin-top: 10px;
+    padding: 0 20px;
+}
+.newsTitle {
+    display: flex;
+    padding: 20px 0;
+}
+.titleLeftText {
+    font-size: 20px;
+    font-weight: 500;
+}
+.titleLeftText:after {
+    content: '|';
+    color: $orange;
+    padding: 0 10px;
+}
+.titleRightText {
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    color: $red;
+}

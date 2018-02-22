@@ -1,4 +1,3 @@
-import createQueryRenderer from './createQueryRender';
-import refetch from './refetch';
+export createQueryRenderer from './createQueryRender';
 
-export { createQueryRenderer, refetch };
+export createMutation from './createMutation';

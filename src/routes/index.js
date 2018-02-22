@@ -32,7 +32,6 @@ const ConnectedRouter = createConnectedRouter({
   render: createRender({
     renderError: (props: { error: {}, router: {} }) => {
       const { error, router } = props;
-      // global.log('routes: renderError', props);
       // 如果路由没有匹配会进入renderError 且error.status = 404
       if (error && error.status === 404) {
         router.replace('/');
@@ -48,7 +47,6 @@ const ConnectedRouter = createConnectedRouter({
       );
     },
     renderPending: props => {
-      // global.log('routes: renderPending', props);
       return (
         <div style={containerStyle}>
           <Spin size="large" style={childrenStyle} />
@@ -56,9 +54,7 @@ const ConnectedRouter = createConnectedRouter({
       );
     },
     renderReady: (props: { elements: any }) => {
-      // global.log('routes: renderReady', props);
-      const { elements } = props;
-      console.log(elements);
+      const { elements } = props;      
       return <ElementsRenderer elements={elements} />;
     },
   }),
