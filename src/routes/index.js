@@ -30,22 +30,6 @@ store.dispatch(FarceActions.init());
 
 const ConnectedRouter = createConnectedRouter({
   render: createRender({
-    renderError: (props: { error: {}, router: {} }) => {
-      const { error, router } = props;
-      // 如果路由没有匹配会进入renderError 且error.status = 404
-      if (error && error.status === 404) {
-        router.replace('/');
-      }
-      return (
-        <div style={containerStyle}>
-          {error && error.status === 404 ? (
-            <div style={childrenStyle}> {'页面不存在'} </div>
-          ) : (
-            <span style={childrenStyle}>{error.status}</span>
-          )}
-        </div>
-      );
-    },
     renderPending: props => {
       return (
         <div style={containerStyle}>

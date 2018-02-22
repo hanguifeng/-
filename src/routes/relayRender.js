@@ -24,8 +24,7 @@ export const relayRender = () => {
       // 对错误进行格式化处理
       const _error = errorFormat(error);
       if (_error) {
-        // global.log.error('relayRenderError:', error, _error);
-        // 如果有error.message;
+        console.log('relayRenderError:', error, _error);
         if (_error.message) {
           return (
             <div style={containerStyle}>
@@ -35,7 +34,6 @@ export const relayRender = () => {
             </div>
           );
         }
-        // 如果没有error.message
         if (!_error.message) {
           return (
             <div style={containerStyle}>
