@@ -18,9 +18,9 @@ class PictureGoods extends Component {
     const { pageInfo: { hasNextPage } } = viewer.commodities;
     if (!hasNextPage) {
       this.setState({ num: 1 });
-      relay.refetch({ first: 6, from: 0, category: "picture" });
+      relay.refetch({ first: 4, from: 0, category: "picture" });
     } else {
-      relay.refetch({ first: 6, from: this.state.num * 6, category: "picture" });
+      relay.refetch({ first: 4, from: this.state.num * 4, category: "picture" });
       this.setState({ num: this.state.num + 1 });
     }
   }
@@ -48,7 +48,7 @@ const PictureGoodsWithFragmentContainer = createRefetchContainer(
   {
     viewer: graphql`
       fragment pictureGoods_viewer on Viewer @argumentDefinitions(
-        first: { type: "Int", defaultValue: 6 }
+        first: { type: "Int", defaultValue: 4 }
         from: { type: "Int", defaultValue: 0 }
         category: { type: "String", defaultValue: "picture" }
       ) {

@@ -5,31 +5,28 @@
     margin-left: 180px;
 }
 .itemWrapper {
+    width: 490px;
     padding: 20px;
     background-color: $white;
     margin-bottom: 10px;
 }
 .pictureImg {
-    width: 530px;
+    width: 450px;
     height: 300px;
     cursor: pointer;
 }
 .pictureName {
     cursor: pointer;
     font-size: 16px;
-    width: 530px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    width: 470px;
+    white-space: wrap;
 }
 .pictureName:hover {
     color: $deepGrey;
 }
 .pictureDesc {
-    width: 530px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    width: 470px;
+    white-space: wrap;
     color: $deepGrey
 }
 .bottomText {

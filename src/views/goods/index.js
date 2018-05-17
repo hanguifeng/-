@@ -10,6 +10,7 @@ class Goods extends Component {
   props: Props;
   state = {
     category: 'picture',
+    search: '',
   };
 
   handleClick = (category) => {
@@ -52,11 +53,9 @@ class Goods extends Component {
             {'家具'}
           </li>
         </ul>
-        <div>
-          {
-            children
-          }
-        </div>
+        {
+          children
+        }
       </div>
     );
   }

@@ -16,6 +16,15 @@ type Props = {
   onCancel: () => {},
   users: {},
 };
+const orderNumberFormat = type => {
+  return (rule, value, callback) => {
+    const re = /^[\u4e00-\u9fa5a-zA-Z0-9-]+$/;
+    if (!re.test(value)) {
+      callback(`${type}只能由英文字母、中文、数字、-组成`);
+    }
+    callback();
+  };
+};
 
 class Login extends Component {
   props: Props;
@@ -49,7 +58,7 @@ class Login extends Component {
             Message.error(error);
             return null;
           }
-          LocalStorage.set('token_password', createToken.token, 60 * 60 * 24);
+          LocalStorage.set('token_password', password, 60 * 60 * 24);
           LocalStorage.set('user_name', nickName);
           setTimeout(() => {
             Message.success('登陆成功');
@@ -85,7 +94,9 @@ class Login extends Component {
               {getFieldDecorator('nickName', {
                 rules: [{
                   required: true, message: '用户名不能为空!',
-                }],
+                },{ validator: orderNumberFormat('昵称') },
+                { max: 10, message: '昵称长度不能超过10个字' },
+              ],
               })(
                 <div style={{marginTop: 30 }}>
                   <Input

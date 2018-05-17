@@ -1,3 +1,69 @@
+input addAddressInput {
+  user_id: String!
+  province: String!
+  city: String!
+  block: String!
+  detailAddress: String!
+  name: String!
+  phoneNumber: String!
+  zipCode: String!
+  isDefault: String!
+  clientMutationId: String
+}
+
+type addAddressPayload {
+  addresses: AddressTypeConnection
+  clientMutationId: String
+}
+
+input addPurchaseOrderInput {
+  userId: String!
+  addressId: String!
+  commodityId: String!
+  totalPrice: String!
+  amount: String!
+  isPay: String!
+  clientMutationId: String
+}
+
+type addPurchaseOrderPayload {
+  purchaseOrders: PurchaseOrderTypeConnection
+  clientMutationId: String
+}
+
+"""Address信息"""
+type AddressType {
+  """The ID of an object"""
+  id: ID!
+  province: String
+  city: String
+  block: String
+  detailAddress: String
+  user_id: String
+  name: String
+  phoneNumber: String
+  zipCode: String
+  isDefault: String
+}
+
+"""A connection to a list of items."""
+type AddressTypeConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [AddressTypeEdge]
+}
+
+"""An edge in a connection."""
+type AddressTypeEdge {
+  """The item at the end of the edge"""
+  node: AddressType
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
 """Commodity信息"""
 type CommodityType {
   """The ID of an object"""
@@ -7,6 +73,7 @@ type CommodityType {
   image: String
   desc: String
   category: String
+  amount: String
 }
 
 """A connection to a list of items."""
@@ -44,6 +111,8 @@ input createUserInput {
   nickName: String!
   password: String!
   phoneNumber: String!
+  sex: String!
+  birthday: String!
   clientMutationId: String
 }
 
@@ -53,9 +122,24 @@ type createUserPayload {
   clientMutationId: String
 }
 
+input deleteAddressInput {
+  address_id: String!
+  clientMutationId: String
+}
+
+type deleteAddressPayload {
+  clientMutationId: String
+}
+
 type Mutation {
   createToken(input: createTokenInput!): createTokenPayload
   createUser(input: createUserInput!): createUserPayload
+  updateUser(input: updateUserInput!): updateUserPayload
+  updateAddress(input: updateAddressInput!): updateAddressPayload
+  addAddress(input: addAddressInput!): addAddressPayload
+  deleteAddress(input: deleteAddressInput!): deleteAddressPayload
+  addPurchaseOrder(input: addPurchaseOrderInput!): addPurchaseOrderPayload
+  updatePurchaseOrderPay(input: updatePurchaseOrderPayInput!): updatePurchaseOrderPayPayload
 }
 
 """New信息"""
@@ -101,8 +185,104 @@ type PageInfo {
   endCursor: String
 }
 
+"""PurchaseOrder信息"""
+type PurchaseOrderType {
+  """The ID of an object"""
+  id: ID!
+  totalPrice: String
+  amount: String
+  isPay: String
+  createdAt: String
+  user_id: String
+  address_id: String
+  province: String
+  city: String
+  block: String
+  detailAddress: String
+  name: String
+  phoneNumber: String
+  zipCode: String
+  commoditiyId: String
+  commoditiyAmount: String
+  commoditiyName: String
+  commoditiyPrice: String
+  commoditiyImage: String
+}
+
+"""A connection to a list of items."""
+type PurchaseOrderTypeConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [PurchaseOrderTypeEdge]
+}
+
+"""An edge in a connection."""
+type PurchaseOrderTypeEdge {
+  """The item at the end of the edge"""
+  node: PurchaseOrderType
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
 type Query {
   viewer: Viewer
+}
+
+"""ShoppingCar信息"""
+type ShoppingCarType {
+  """The ID of an object"""
+  id: ID!
+  totalPrice: Float
+  amount: String
+}
+
+input updateAddressInput {
+  address_id: String!
+  province: String!
+  city: String!
+  block: String!
+  detailAddress: String!
+  name: String!
+  phoneNumber: String!
+  zipCode: String!
+  isDefault: String!
+  clientMutationId: String
+}
+
+type updateAddressPayload {
+  address: AddressType
+  clientMutationId: String
+}
+
+input updatePurchaseOrderPayInput {
+  purchaseOrderId: String!
+  isPay: String!
+  amount: String!
+  commodityId: String!
+  clientMutationId: String
+}
+
+type updatePurchaseOrderPayPayload {
+  purchaseOrder: PurchaseOrderType
+  clientMutationId: String
+}
+
+input updateUserInput {
+  user_id: String!
+  nickName: String!
+  password: String!
+  phoneNumber: String!
+  sex: String!
+  birthday: String!
+  clientMutationId: String
+}
+
+type updateUserPayload {
+  user: UserType
+  clientMutationId: String
 }
 
 """User信息"""
@@ -114,6 +294,8 @@ type UserType {
   sex: String
   nickName: String
   phoneNumber: String
+  authority: String
+  birthday: String
   accountImage: String
 }
 
@@ -141,6 +323,10 @@ type Viewer {
   id: ID!
   users(after: String, first: Int, before: String, last: Int): UserTypeConnection
   user(id: String): UserType
-  commodities(category: String, from: Int, after: String, first: Int, before: String, last: Int): CommodityTypeConnection
+  addresses(user_id: String, after: String, first: Int, before: String, last: Int): AddressTypeConnection
+  purchaseOrders(user_id: String, after: String, first: Int, before: String, last: Int): PurchaseOrderTypeConnection
+  commodities(category: String, search: String, from: Int, after: String, first: Int, before: String, last: Int): CommodityTypeConnection
+  commodity(id: String): CommodityType
+  shoppingCar(user_id: String): ShoppingCarType
   news(from: Int, after: String, first: Int, before: String, last: Int): NewTypeConnection
 }

@@ -48,7 +48,7 @@ const CalligraphyGoodsWithFragmentContainer = createRefetchContainer(
   {
     viewer: graphql`
       fragment calligraphyGoods_viewer on Viewer @argumentDefinitions(
-        first: { type: "Int", defaultValue: 6 }
+        first: { type: "Int", defaultValue: 4 }
         category: { type: "String", defaultValue: "calligraphy" }
       ) {
         calligraphyCommodities: commodities(category: $category, first: $first) {

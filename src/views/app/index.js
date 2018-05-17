@@ -28,7 +28,7 @@ class App extends Component {
 
     return (
       <div>
-        <PageHeader variables={{ userID }} />
+        <PageHeader params={{ userID }} />
         <div className={styles.mainPage}>
           <Nav />
           <div>{children}</div>

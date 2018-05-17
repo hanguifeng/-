@@ -32,16 +32,16 @@ const createQueryRenderer = (Component, query, defaultVaribles) => {
   if (!query) {
     throw new Error('query参数是createQueryRenderer函数必须的参数');
   }
-  return (props: { variables: {}, environment: {} }) => {
-    const { variables, environment, ...rest } = props;
+  return (props: { params: {}, environment: {} }) => {
+    const { params, environment, ...rest } = props;
 
     return (
       <QueryRenderer
-        variables={{ ...defaultVaribles, ...variables }}
+        variables={{ ...defaultVaribles, ...params }}
         query={query}
         render={defaultRender(
           Component,
-          { variables: { ...defaultVaribles, ...variables }, ...rest },
+          { variables: { ...defaultVaribles, ...params }, ...rest },
         )}
         environment={environment || defaultEnvironment}
       />

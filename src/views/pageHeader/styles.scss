@@ -1,6 +1,16 @@
 .topNavigationWrapper {
   width: 100%;
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid $deepGrey;
+  background-color: $backgroundGrey;
+  padding: 0 140px;
+  height: 40px;
+}
+.topNavigationWrapper1 {
+  width: 100%;
+  display: flex;
   justify-content: flex-end;
   align-items: center;
   border-bottom: 1px solid $deepGrey;
@@ -31,6 +41,7 @@
 .userName {
   margin-right: 70px;
   color: $deepGrey;
+  cursor: pointer;
 }
 .register {
   cursor: pointer;

@@ -1,0 +1,39 @@
+.loginFormContainer {
+  max-width: 300px;
+  margin: 0 auto;
+  padding-top: 126px;
+  font-size: 16px;
+
+  .formTitle {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 36px;
+    font-weight: bold;
+    padding-bottom: 24px;
+    color: #000;
+  }
+
+  .loginForm {
+    max-width: 294px;
+    :global {
+      .ant-form-item {
+        margin-bottom: 0;
+        display: block;
+      }
+      .ant-input-group-wrapper {
+        display: inline-block;
+      }
+      .ant-spin-dot i {
+        background-color: black;
+      }
+    }
+  }
+}
+// :global {
+//   .ant-layout {
+    
+//   }
+// }

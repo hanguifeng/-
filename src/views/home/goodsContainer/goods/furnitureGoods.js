@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { createRefetchContainer, graphql } from 'react-relay';
 import PropTypes from 'prop-types';
-import store from 'store';
 import setMenuState from 'store/redux/actions/menu';
 import Base from './base';
 import styles from './styles.scss';
@@ -15,6 +14,7 @@ class FurnitureGoods extends Component {
   state={};
 
   handleClick = () => {
+    const { store } = this.context;
     store.dispatch(setMenuState('goods'));
     this.context.router.push({
       pathname: `/goods/furniture`,
@@ -41,6 +41,7 @@ class FurnitureGoods extends Component {
 
 FurnitureGoods.contextTypes = {
   router: PropTypes.object.isRequired,
+  store: PropTypes.object.isRequired,
 };
 
 const FurnitureGoodsWithFragmentContainer = createRefetchContainer(
@@ -48,7 +49,7 @@ const FurnitureGoodsWithFragmentContainer = createRefetchContainer(
   {
     viewer: graphql`
       fragment furnitureGoods_viewer on Viewer @argumentDefinitions(
-        first: { type: "Int", defaultValue: 6 }
+        first: { type: "Int", defaultValue: 4 }
         category: { type: "String", defaultValue: "furniture" }
       ) {
         furnitureCommodities: commodities(category: $category, first: $first) {

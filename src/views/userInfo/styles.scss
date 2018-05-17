@@ -1,0 +1,28 @@
+:global {
+  .ant-modal-body {
+    padding: 0
+  }
+  .ant-form-item-control-wrapper {
+    width: 300px;
+    margin: auto;
+  }
+}
+.loginWrapper {
+  background-size: 33%;
+  background-image: url(http://pic.qiantucdn.com/58pic/18/96/67/55Y58PICm6B_1024.jpg);
+  .loginTopInfo {
+    padding: 17px 0 0 50px;
+    font-size: 16px;
+    color: $blue;
+    border-bottom: 2px solid $black;
+  }
+  .loginInput {
+    width: 300px;
+    margin: auto;
+  }
+  .loginButton {
+    padding-bottom: 30px;
+    display: flex;
+    justify-content: center;
+  }
+}

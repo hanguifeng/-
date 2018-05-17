@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { createPaginationContainer, graphql } from 'react-relay';
-import { Spin } from 'antd';
+import { Spin, Input } from 'antd';
 import GoodsItem from './goodsItem';
 import styles from './styles.scss';
 
@@ -8,6 +8,7 @@ type Props = {
   viewer: Object,
   relay: any,
 };
+const Search = Input.Search;
 
 class DigitalProductList extends Component {
   props: Props;
@@ -34,6 +35,14 @@ class DigitalProductList extends Component {
     }
     return (
       <div className={styles.wrapper}>
+        <Search
+          placeholder="请输入商品名称"
+          onSearch={value => {
+            this.setState({ search: value });
+          }}
+          enterButton
+          style={{ width: 320, marginLeft: 800, margin: '9px 0 17px 600px' }}
+        />
         {
           commodities.edges.map(({ node }) => {
             return <GoodsItem key={node.id} node={node} />

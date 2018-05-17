@@ -34,7 +34,11 @@ class NewsContainer extends Component {
           <div
             className={styles.titleAction}
             onClick={() => {
-              store.dispatch(setMenuState('news'));
+              setTimeout(() => {
+                store.dispatch(setMenuState('news'));
+                console.log(store.getState());
+              }, 3000);
+              console.log(store.getState());
               this.context.router.push({
                 pathname: `/news`,
               });

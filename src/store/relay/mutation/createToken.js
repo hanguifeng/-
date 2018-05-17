@@ -6,6 +6,7 @@ const mutation = graphql`
     createToken(input: $input) {
       user {
         id
+        authority
       }
       error
     }

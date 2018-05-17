@@ -6,6 +6,7 @@ import Goods from './index';
 import PictureList from './list/pictureList';
 import FurnitureList from './list/furnitureList';
 import DigitalProductList from './list/digitalProductList';
+import GoodsDetail from './detail/index';
 import CalligraphyList from './list/calligraphyList';
 
 const pictureListQuery = graphql`
@@ -57,10 +58,10 @@ const router = [
     <Route
       path="digitalProduct"
       key="digitalProduct"
-      Component={DigitalProductList}
-      render={relayRender(DigitalProductList)}
-      query={digitalProductListQuery}
-    />,
+    >
+      <Route Component={DigitalProductList} render={relayRender(DigitalProductList)} query={digitalProductListQuery} />
+      <Route path=":commodityId/:userId/detail" Component={GoodsDetail} />
+    </Route>
     <Route
       path="calligraphy"
       key="calligraphy"

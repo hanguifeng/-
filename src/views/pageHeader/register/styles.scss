@@ -1,11 +1,20 @@
 .regesterButton {
-    padding-bottom: 30px;
-    display: flex;
-    justify-content: center;
+  padding-bottom: 30px;
+  display: flex;
+  justify-content: center;
 }
 .regesterTopInfo {
-    padding: 17px 0 5px 50px;
-    font-size: 16px;
-    color: $blue;
-    border-bottom: 2px solid $black;
+  padding: 17px 0 5px 50px;
+  font-size: 16px;
+  color: $blue;
+  border-bottom: 2px solid $black;
+}
+.loginWrapper {
+  background-size: 33%;
+  background-image: url(http://pic.qiantucdn.com/58pic/18/96/67/55Y58PICm6B_1024.jpg);
+}
+:global {
+  .ant-form-item {
+    margin-bottom: 10px;
+  }
 }

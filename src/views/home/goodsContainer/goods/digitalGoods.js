@@ -48,7 +48,7 @@ const DigitalGoodsWithFragmentContainer = createRefetchContainer(
   {
     viewer: graphql`
       fragment digitalGoods_viewer on Viewer @argumentDefinitions(
-        first: { type: "Int", defaultValue: 6 }
+        first: { type: "Int", defaultValue: 4 }
         category: { type: "String", defaultValue: "digitalProduct" }
       ) {
         digitalCommodities: commodities(category: $category, first: $first) {

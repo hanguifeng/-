@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { Input, Form, Modal } from 'antd';
+import { Input, Form, Modal, Radio, DatePicker, Upload, Icon } from 'antd';
 import { Button, Message } from 'components';
 import { hashPassword } from 'utils/getHash';
 import { createUserMutation } from 'store/relay/mutation';
 import styles from './styles.scss';
 
+const RadioGroup = Radio.Group;
 const FormItem = Form.Item;
 const formItemLayout = {
   labelCol: {
@@ -16,6 +17,23 @@ const formItemLayout = {
     sm: { span: 16 },
   },
 };
+const options = [
+  { label: '男', value: 'male' },
+  { label: '女', value: 'female' },
+];
+const fileList = [{
+  uid: -1,
+  name: 'xxx.png',
+  status: 'done',
+  url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+  thumbUrl: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+}];
+
+const props = {
+  action: '//jsonplaceholder.typicode.com/posts/',
+  listType: 'picture',
+  defaultFileList: [...fileList],
+};
 
 type Props = {
   visible: boolean,
@@ -23,9 +41,21 @@ type Props = {
   onCancel: () => {},
 }
 
+const orderNumberFormat = type => {
+  return (rule, value, callback) => {
+    const re = /^[\u4e00-\u9fa5a-zA-Z0-9-]+$/;
+    if (!re.test(value)) {
+      callback(`${type}只能由英文字母、中文、数字、-组成`);
+    }
+    callback();
+  };
+};
+
 class Register extends Component {
   props: Props;
-  state = {};
+  state = {
+    sex: 'male',
+  };
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.visible) {
@@ -35,16 +65,26 @@ class Register extends Component {
     this.setState({ visible: false });
   }
 
+  onChange1 = (e) => {
+    console.log(e);
+    this.setState({
+      sex: e.target.value,
+    });
+  }
+
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        const { nickName, password, phoneNumber } = values;
+        const { nickName, password, phoneNumber, sex, birthday } = values;
+        console.log(birthday._d);
         const variables = {
           input: {
             nickName,
             password: hashPassword(password),
             phoneNumber,
+            sex,
+            birthday: birthday._d,
           }
         };
         const onCompleted = ({ createUser }) => {
@@ -90,12 +130,43 @@ class Register extends Component {
                 {getFieldDecorator('nickName', {
                   rules: [{
                     required: true, message: '请输入昵称',
-                  }],
+                  },
+                  { validator: orderNumberFormat('昵称') },
+                  { max: 10, message: '昵称长度不能超过10个字' },
+                ],
                 })(
                   <Input />
                 )}
               </FormItem>
             </div>
+            <FormItem
+              label="Password"
+              {...formItemLayout}
+            >
+              {getFieldDecorator('password', {
+                rules: [{
+                  required: true, message: '请输入密码',
+                }],
+              })(
+                <Input type="password" />
+              )}
+            </FormItem>
+            <FormItem
+              label="性别"
+              {...formItemLayout}
+            >
+              {getFieldDecorator('sex')(
+                <RadioGroup defaultValue={'male'} options={options} onChange={this.onChange1} value={this.state.sex} />
+              )}
+            </FormItem>
+            <FormItem
+              label="出生日期"
+              {...formItemLayout}
+            >
+              {getFieldDecorator('birthday', )(
+                <DatePicker />
+              )}
+            </FormItem>
             <FormItem
               label="手机号码"
               {...formItemLayout}
@@ -109,17 +180,15 @@ class Register extends Component {
               )}
             </FormItem>
             <FormItem
-              label="Password"
+              label="头像"
               {...formItemLayout}
             >
-              {getFieldDecorator('password', {
-                rules: [{
-                  required: true, message: '请输入密码',
-                }],
-              })(
-                <Input type="password" />
+              {getFieldDecorator('accountImage')(
+                <Upload {...props}>
+                  <Icon type="upload" />
+                </Upload>
               )}
-              </FormItem>
+            </FormItem>
             <div className={styles.regesterButton}>
               <Button text={'注 册'} />
             </div>

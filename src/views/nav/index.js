@@ -32,7 +32,13 @@ class Nav extends Component {
           <Icon type="appstore"/>最新资讯
         </Menu.Item>
         <Menu.Item key="goods">
-        <Icon type="appstore" />爱心义卖
+          <Icon type="appstore" />爱心义卖
+        </Menu.Item>
+        <Menu.Item key="story">
+          <Icon type="book" />爱心故事
+        </Menu.Item>
+        <Menu.Item key="project">
+          <Icon type="exception" />捐助项目
         </Menu.Item>
       </Menu>
     );

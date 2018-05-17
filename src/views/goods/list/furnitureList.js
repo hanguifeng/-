@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { createPaginationContainer, graphql } from 'react-relay';
-import { Spin } from 'antd';
+import { Spin, Input } from 'antd';
 import GoodsItem from './goodsItem';
 import styles from './styles.scss';
 
@@ -8,6 +8,7 @@ type Props = {
   viewer: Object,
   relay: any,
 };
+const Search = Input.Search;
 
 class FurnitureList extends Component {
   props: Props;
@@ -18,7 +19,9 @@ class FurnitureList extends Component {
     if (!relay.hasMore() || relay.isLoading()) {
       return;
     }
-    relay.loadMore();
+    setTimeout(() => {
+      relay.loadMore();
+    }, 1500);
   }
 
   render() {
@@ -34,6 +37,14 @@ class FurnitureList extends Component {
     }
     return (
       <div className={styles.wrapper}>
+        <Search
+          placeholder="请输入商品名称"
+          onSearch={value => {
+            this.setState({ search: value });
+          }}
+          enterButton
+          style={{ width: 320, marginLeft: 800, margin: '9px 0 17px 600px' }}
+        />
         {
           commodities.edges.map(({ node }) => {
             return <GoodsItem key={node.id} node={node} />
@@ -43,7 +54,7 @@ class FurnitureList extends Component {
           !relay.hasMore() ? <div className={styles.bottomText}>{'没有更多了'}</div> : null
         }
         {
-          relay.isLoading() && relay.hasMore() ?
+          relay.hasMore() ?
             <div style={{ margin: '0 auto' }}>
               <Spin />
             </div>
