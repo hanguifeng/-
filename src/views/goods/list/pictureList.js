@@ -12,7 +12,9 @@ const Search = Input.Search;
 
 class PictureList extends Component {
   props: Props;
-  state={};
+  state={
+    commodities: '',
+  };
 
   loadMore = () => {
     const { relay } = this.props;
@@ -30,17 +32,25 @@ class PictureList extends Component {
       return null;
     }
     const { commodities } = viewer;
-    console.log(commodities);
     window.onscroll = () => {
       if (document.body.scrollHeight === Math.floor(document.body.clientHeight + (document.body.scrollTop + document.documentElement.scrollTop))) {
         this.loadMore();
       }
     }
+    const _commodities = this.state.commodities || commodities.edges;
+
     return (
       <div className={styles.wrapper}>
         <Search
           placeholder="请输入商品名称"
           onSearch={value => {
+            const findBySearch = commodities.edges.filter(({ node }) => {
+              return node.name.indexOf(value) !== -1;
+            });
+            if (!value) {
+              this.setState({ commodities: '' });
+            }
+            this.setState({ commodities: findBySearch });
             this.props.relay.refetchConnection(
             10,
             () => { console.log('Refetch done') },
@@ -54,7 +64,7 @@ class PictureList extends Component {
           style={{ width: 320, marginLeft: 800, margin: '9px 0 17px 600px' }}
         />
         {
-          commodities.edges.map(({ node }) => {
+          _commodities.map(({ node }) => {
             return <GoodsItem key={node.id} node={node} />
           })
         }
@@ -111,7 +121,8 @@ const PictureListWithPaginationContainer = createPaginationContainer(
       return {
         first: 10,
         after: props.viewer.commodities.pageInfo.endCursor,
-        category: "picture"
+        category: "picture",
+        search: "",
       };
     },
     query: graphql`

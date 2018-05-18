@@ -12,7 +12,9 @@ const Search = Input.Search;
 
 class DigitalProductList extends Component {
   props: Props;
-  state={};
+  state={
+    commodities: '',
+  };
 
   loadMore = () => {
     const { relay } = this.props;
@@ -33,18 +35,34 @@ class DigitalProductList extends Component {
         this.loadMore();
       }
     }
+    const _commodities = this.state.commodities || commodities.edges;
+
     return (
       <div className={styles.wrapper}>
         <Search
           placeholder="请输入商品名称"
           onSearch={value => {
-            this.setState({ search: value });
+            const findBySearch = commodities.edges.filter(({ node }) => {
+              return node.name.indexOf(value) !== -1;
+            });
+            if (!value) {
+              this.setState({ commodities: '' });
+            }
+            this.setState({ commodities: findBySearch });
+            this.props.relay.refetchConnection(
+            10,
+            (value) => { console.log(value) },
+            {
+              category: 'digitalProduct',
+              first: 10,
+              search: value,
+            });
           }}
           enterButton
           style={{ width: 320, marginLeft: 800, margin: '9px 0 17px 600px' }}
         />
         {
-          commodities.edges.map(({ node }) => {
+          _commodities.map(({ node }) => {
             return <GoodsItem key={node.id} node={node} />
           })
         }
@@ -71,8 +89,9 @@ const DigitalProductListWithPaginationContainer = createPaginationContainer(
         first: { type: "Int", defaultValue: 10 }
         after: { type: "String" }
         category: { type: "String", defaultValue: "digitalProduct" }
+        search: { type: "String", defaultValue: "" }
       ) {
-        commodities(first: $first, after: $after, category: $category)
+        commodities(first: $first, after: $after, category: $category, search: $search)
           @connection(key: "digitalProductList_commodities", filters: []) {
           pageInfo {
             startCursor
@@ -97,16 +116,18 @@ const DigitalProductListWithPaginationContainer = createPaginationContainer(
   {
     direction: 'forward',
     getVariables(props, {first, after}, fragmentVariables) {
+      console.log(fragmentVariables);
       return {
         first: 10,
-        after: props.viewer.commodities.pageInfo.endCursor,
-        category: "digitalProduct"
+        after: "",
+        category: "digitalProduct",
+        search: fragmentVariables.search || "",
       };
     },
     query: graphql`
-      query digitalProductListPaginationQuery($category: String, $first: Int, $after: String) {
+      query digitalProductListPaginationQuery($category: String, $first: Int, $after: String, $search: String) {
         viewer {
-          ...digitalProductList_viewer @arguments(category: $category, first: $first, after: $after)
+          ...digitalProductList_viewer @arguments(category: $category, first: $first, after: $after, search: $search)
         }
       }
     `,
@@ -114,3 +135,4 @@ const DigitalProductListWithPaginationContainer = createPaginationContainer(
 );
   
 export default DigitalProductListWithPaginationContainer;
+// props.viewer.commodities.pageInfo.endCursor

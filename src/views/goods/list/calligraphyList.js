@@ -12,7 +12,9 @@ const Search = Input.Search;
 
 class CalligraphyList extends Component {
   props: Props;
-  state={};
+  state={
+    commodities: '',
+  };
 
   loadMore = () => {
     const { relay } = this.props;
@@ -33,18 +35,26 @@ class CalligraphyList extends Component {
         this.loadMore();
       }
     }
+    const _commodities = this.state.commodities || commodities.edges;
+
     return (
       <div className={styles.wrapper}>
         <Search
           placeholder="请输入商品名称"
           onSearch={value => {
-            this.setState({ search: value });
+            const findBySearch = commodities.edges.filter(({ node }) => {
+              return node.name.indexOf(value) !== -1;
+            });
+            if (!value) {
+              this.setState({ commodities: '' });
+            }
+            this.setState({ commodities: findBySearch });
           }}
           enterButton
           style={{ width: 320, marginLeft: 800, margin: '9px 0 17px 600px' }}
         />
         {
-          commodities.edges.map(({ node }) => {
+          _commodities.map(({ node }) => {
             return <GoodsItem key={node.id} node={node} />
           })
         }

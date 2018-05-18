@@ -116,7 +116,7 @@ class PageHeader extends Component {
                   <Icon type="notification"></Icon>
                   爱心公告
                 </div>
-                <div style={{ marginRight: 684, cursor: 'pointer' }}>
+                <div style={{ marginRight: 680, cursor: 'pointer' }}>
                   <Icon type="menu-unfold"></Icon>
                   使用帮助
                 </div>
