@@ -6,7 +6,7 @@ import { Button, Icon, Modal, Select } from 'antd';
 import { Message } from 'components';
 import store from 'store';
 import { borderGrey, sliverGrey, errorRed } from 'styles/color';
-import { addPurchaseOrder } from 'store/relay/mutation';
+import { addPurchaseOrder, addSCC } from 'store/relay/mutation';
 
 type Props = {
   viewer: {},
@@ -83,7 +83,7 @@ class GoodsDetail extends Component {
   render() {
     const { viewer } = this.props;
     const { commodity, addresses } = viewer;
-    const { desc, amount, name, price, image } = commodity;
+    const { id, desc, amount, name, price, image } = commodity;
     const defaultAddress = addresses.edges.filter(({ node }) => node.isDefault === 'true');
     const otherAddress = addresses.edges.filter(({ node }) => node.isDefault === 'false');
 
@@ -106,7 +106,17 @@ class GoodsDetail extends Component {
             </div>
             <div style={{ display: 'flex', marginTop: 40 }}>
               <div style={{ border: `1px solid ${borderGrey}`, backgroundColor: '#FFE4D0', color: errorRed, padding: '12px 35px', marginRight: 20, cursor: 'pointer' }} onClick={() => {this.setState({ visible: true })}}>立即购买</div>
-              <div style={{ border: `1px solid ${borderGrey}`, backgroundColor: errorRed, color: 'white', padding: '12px 35px', cursor: 'pointer' }}>
+              <div
+                style={{ border: `1px solid ${borderGrey}`, backgroundColor: errorRed, color: 'white', padding: '12px 35px', cursor: 'pointer' }}
+                onClick={() => {
+                  const onCompleted = () => {
+                    setTimeout(() => {
+                      Message.success('加入购物车成功');
+                    }, 100);
+                  };
+                  addSCC({ variables: { commodityId: id, amount: this.state.num }, onCompleted })();
+                }}
+              >
                 <Icon type={"shopping-cart"} style={{ marginRight: 8 }}></Icon>
                 加入购物车
               </div>

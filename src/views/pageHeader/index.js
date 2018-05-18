@@ -54,6 +54,7 @@ class PageHeader extends Component {
     const loginState = store.getState().loginReducer.loginState;
     const user = viewer.user || {};
     const { nickName, accountImage } = user;
+
     const menu = (
       <Menu>
         <Menu.Item key="0">
@@ -120,7 +121,12 @@ class PageHeader extends Component {
                   <Icon type="menu-unfold"></Icon>
                   使用帮助
                 </div>
-                <div style={{ marginRight: 60, cursor: 'pointer' }}>
+                <div
+                  style={{ marginRight: 60, cursor: 'pointer' }}
+                  onClick={() => {
+                    this.context.router.push({ pathname: `/${this.props.variables.userID}/shoppingCar` })
+                  }}
+                >
                   <Icon type="shopping-cart" />
                   购物车
                 </div>

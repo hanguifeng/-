@@ -6,3 +6,5 @@ export updateUser from './updateUser';
 export deleteAddress from './deleteAddress';
 export addPurchaseOrder from './addPurchaseOrder';
 export updatePurchaseOrderPay from './updatePurchaseOrderPay';
+export deleteSCC from './deleteSCC';
+export addSCC from './addSCC';

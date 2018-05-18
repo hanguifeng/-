@@ -16,6 +16,7 @@ import UserInfo from './userInfo';
 import DetailInfo from './userInfo/detailInfo';
 import Address from './userInfo/address';
 import PurchaseInfo from './userInfo/purchaseInfo';
+import ShoppingCar from './shoppingCar';
 
 const homeQuery = graphql`
   query views_home_Query {
@@ -49,6 +50,11 @@ const mainPageRoute = isFront ? [
       Component={News}
       render={relayRender(News)}
       query={newsQuery}
+    />
+    <Route
+      path=":userId/shoppingCar"
+      key="shoppingCar"
+      Component={ShoppingCar}
     />
     {
       goodsRouter

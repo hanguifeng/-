@@ -16,6 +16,17 @@ type addAddressPayload {
   clientMutationId: String
 }
 
+input addNewsInput {
+  time: String!
+  title: String!
+  laohe: String!
+  clientMutationId: String
+}
+
+type addNewsPayload {
+  clientMutationId: String
+}
+
 input addPurchaseOrderInput {
   userId: String!
   addressId: String!
@@ -62,6 +73,16 @@ type AddressTypeEdge {
 
   """A cursor for use in pagination"""
   cursor: String!
+}
+
+input addSCCInput {
+  commodityId: String!
+  amount: String!
+  clientMutationId: String
+}
+
+type addSCCPayload {
+  clientMutationId: String
 }
 
 """Commodity信息"""
@@ -131,6 +152,15 @@ type deleteAddressPayload {
   clientMutationId: String
 }
 
+input deleteSCCInput {
+  commodity_id: String!
+  clientMutationId: String
+}
+
+type deleteSCCPayload {
+  clientMutationId: String
+}
+
 type Mutation {
   createToken(input: createTokenInput!): createTokenPayload
   createUser(input: createUserInput!): createUserPayload
@@ -140,6 +170,9 @@ type Mutation {
   deleteAddress(input: deleteAddressInput!): deleteAddressPayload
   addPurchaseOrder(input: addPurchaseOrderInput!): addPurchaseOrderPayload
   updatePurchaseOrderPay(input: updatePurchaseOrderPayInput!): updatePurchaseOrderPayPayload
+  addNews(input: addNewsInput!): addNewsPayload
+  deleteSCC(input: deleteSCCInput!): deleteSCCPayload
+  addSCC(input: addSCCInput!): addSCCPayload
 }
 
 """New信息"""
@@ -150,6 +183,7 @@ type NewType {
   title: String
   url: String
   acount: Int
+  laohe: String
 }
 
 """A connection to a list of items."""
@@ -235,8 +269,29 @@ type Query {
 type ShoppingCarType {
   """The ID of an object"""
   id: ID!
-  totalPrice: Float
+  commodityId: String
+  name: String
+  price: String
+  image: String
   amount: String
+}
+
+"""A connection to a list of items."""
+type ShoppingCarTypeConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [ShoppingCarTypeEdge]
+}
+
+"""An edge in a connection."""
+type ShoppingCarTypeEdge {
+  """The item at the end of the edge"""
+  node: ShoppingCarType
+
+  """A cursor for use in pagination"""
+  cursor: String!
 }
 
 input updateAddressInput {
@@ -324,9 +379,9 @@ type Viewer {
   users(after: String, first: Int, before: String, last: Int): UserTypeConnection
   user(id: String): UserType
   addresses(user_id: String, after: String, first: Int, before: String, last: Int): AddressTypeConnection
-  purchaseOrders(user_id: String, after: String, first: Int, before: String, last: Int): PurchaseOrderTypeConnection
+  purchaseOrders(user_id: String, purchaseOrder_id: String, after: String, first: Int, before: String, last: Int): PurchaseOrderTypeConnection
   commodities(category: String, search: String, from: Int, after: String, first: Int, before: String, last: Int): CommodityTypeConnection
   commodity(id: String): CommodityType
-  shoppingCar(user_id: String): ShoppingCarType
+  shoppingCar(after: String, first: Int, before: String, last: Int): ShoppingCarTypeConnection
   news(from: Int, after: String, first: Int, before: String, last: Int): NewTypeConnection
 }
